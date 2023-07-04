@@ -118,3 +118,55 @@ FindingNumber(myArray);
 // 5 9 2 3
 // 8 4 2 4
 // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+
+int InputNum(string message)
+{
+    Console.Write(message);
+    return int.Parse(Console.ReadLine()!);
+}
+
+int[,] Create2DArray(int rows, int columns)
+{
+    return new int[rows, columns];
+}
+
+
+void Fill2DArray(int[,] array)
+{
+    Random rnd = new Random();
+    for (int i = 0; i < array.GetLength(0); i++)
+        for (int j = 0; j < array.GetLength(1); j++)
+            array[i, j] = rnd.Next(1,100);
+}
+
+void Print2DArr(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+            Console.Write($"{array[i, j]}\t");
+        Console.WriteLine();
+    }
+}
+
+double [] GetSumOfRows(int[,] arr)                   
+{
+    double[] sums = new double [arr.GetLength(1)];
+    for (int j = 0; j < arr.GetLength(1); j++)
+    {
+        for (int i = 0; i < arr.GetLength(0); i++)
+        {
+            sums[j] += arr[i, j];
+        }
+        sums[j] /= arr.GetLength(0);
+    }
+    return sums;
+}
+
+int rows = InputNum("Введите количество строк: ");
+int cols = InputNum("Введите количество столбцов: ");
+int [,] arr = Create2DArray(rows, cols);
+Fill2DArray(arr);
+Print2DArr(arr);
+Console.WriteLine("");
+Console.WriteLine(string.Join("\t", GetSumOfRows(arr)));
